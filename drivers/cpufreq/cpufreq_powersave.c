@@ -14,7 +14,6 @@
 #include <linux/module.h>
 #include <linux/cpufreq.h>
 #include <linux/init.h>
-#define LOAD 0
 
 static int cpufreq_governor_powersave(struct cpufreq_policy *policy,
 					unsigned int event)
@@ -26,7 +25,6 @@ static int cpufreq_governor_powersave(struct cpufreq_policy *policy,
 							policy->min, event);
 		__cpufreq_driver_target(policy, policy->min,
 						CPUFREQ_RELATION_L);
-		cpufreq_notify_utilization(policy, LOAD);
 		break;
 	default:
 		break;
