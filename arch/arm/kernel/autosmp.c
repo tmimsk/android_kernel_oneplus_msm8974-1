@@ -53,7 +53,7 @@ static struct asmp_param_struct {
 } asmp_param = {
 	.delay = 100,
 	.max_cpus = CONFIG_NR_CPUS,
-	.min_cpus = 1,
+	.min_cpus = 2,
 	.cpufreq_up = 90,
 	.cpufreq_down = 60,
 	.cycle_up = 1,
@@ -61,7 +61,7 @@ static struct asmp_param_struct {
 };
 
 static unsigned int cycle = 0;
-static int enabled __read_mostly = 0;
+static int enabled __read_mostly = 1;
 static int enable_switch = 0;
 
 static void reschedule_hotplug_work(void)
