@@ -667,12 +667,7 @@ static void do_signal(struct pt_regs *regs, int syscall)
 	if (signr > 0) {
 		sigset_t *oldset;
 
-		/*
-		 * Depending on the signal settings we may need to revert the
-		 * decision to restart the system call.  But skip this if a
-		 * debugger has chosen to restart at a different PC.
-		 */
-		if (regs->ARM_pc == restart_addr) {
+		if (unlikely(restart)) {
 			if (retval == -ERESTARTNOHAND ||
 			    retval == -ERESTART_RESTARTBLOCK
 			    || (retval == -ERESTARTSYS
@@ -680,7 +675,6 @@ static void do_signal(struct pt_regs *regs, int syscall)
 				regs->ARM_r0 = -EINTR;
 				regs->ARM_pc = continue_addr;
 			}
-			clear_thread_flag(TIF_SYSCALL_RESTARTSYS);
 		}
 
 		if (test_thread_flag(TIF_RESTORE_SIGMASK))
