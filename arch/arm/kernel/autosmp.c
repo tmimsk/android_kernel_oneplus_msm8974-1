@@ -53,7 +53,7 @@ static struct asmp_param_struct {
 } asmp_param = {
 	.delay = 30,
 	.max_cpus = CONFIG_NR_CPUS,
-	.min_cpus = 2,
+	.min_cpus = 1,
 	.cpufreq_up = 90,
 	.cpufreq_down = 60,
 	.cycle_up = 1,
