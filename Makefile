@@ -368,16 +368,19 @@ LINUXINCLUDE    := -I$(srctree)/arch/$(hdr-arch)/include \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-myK_FLAGS	:= -pipe -munaligned-access -mfloat-abi=softfp -mfpu=neon-vfpv4
-myK_FLAGS	+= -Wno-unused -Wno-maybe-uninitialized
-myK_FLAGS	+= --param l1-cache-size=64 --param l1-cache-line-size=64 --param l2-cache-size=2048
+# YoshiShaPow's Optimizations
+YOSHI_FLAGS	:= -pipe -munaligned-access -mfloat-abi=softfp -mvectorize-with-neon-quad -mfpu=neon-vfpv4 \
+		   -fmodulo-sched -fmodulo-sched-allow-regmoves \
+		   -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
+		   -fno-pic -Wno-unused -Wno-maybe-uninitialized \
+		   --param l1-cache-size=16 --param l1-cache-line-size=16 --param l2-cache-size=2048
 
 KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
 		   -fno-delete-null-pointer-checks \
-		   $(myK_FLAGS)
+		   $(YOSHI_FLAGS)
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
 KBUILD_AFLAGS   := -D__ASSEMBLY__
